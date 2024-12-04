@@ -1,0 +1,203 @@
+/* General Styles */
+/* Banner Styling */
+.banner {
+    background-color: #007bff; /* Blue background for emphasis */
+    color: #fff; /* White text for contrast */
+    text-align: center; /* Center the text */
+    padding: 10px 20px; /* Add padding for spacing */
+    font-size: 1.2em; /* Increase font size */
+    font-weight: bold; /* Bold text for emphasis */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    margin-bottom: 20px; /* Space below the banner */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 10px;
+    position: relative; /* Allows tooltips to position relative to headers */
+}
+
+h3 {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Form Container */
+.form {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Highlighted Text */
+.highlight {
+    color: red !important; /* Force red color for the text */
+    font-weight: bold;
+}
+
+/* Inputs and Buttons */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s ease;
+}
+
+button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Progress Bar */
+progress {
+    width: 100%;
+    height: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #ddd;
+}
+
+progress::-webkit-progress-value {
+    background-color: #007bff;
+}
+
+progress::-moz-progress-bar {
+    background-color: #007bff;
+}
+
+/* Info Icons */
+.info-icon {
+    font-size: 1.2em;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+    transition: color 0.3s;
+}
+
+.info-icon:hover {
+    color: #0056b3;
+}
+
+/* Popup Styling */
+.info-popup {
+    display: none; /* Hidden by default */
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-width: 90%;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Visible popup when hidden class is toggled off */
+.info-popup:not(.hidden) {
+    display: block;
+}
+
+/* Popup Close Button */
+.info-popup button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.info-popup button:hover {
+    background: #0056b3;
+}
+
+/* Animations for Popups */
+.info-popup {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .info-popup {
+        font-size: 0.8em;
+        max-width: 90%;
+    }
+}

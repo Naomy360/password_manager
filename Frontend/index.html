@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Password Manager</h1>
+    <div class="banner">
+        <p>
+            <strong>Welcome!</strong> Learn about keeping your passwords safe, how we secure them, and why it matters.
+        </p>
+    </div>
+    
+
+    <!-- Test Password Section -->
+    <div class="form">
+        <h2>
+            Test Your Password
+            <i class="fas fa-question-circle info-icon" onclick="togglePopup('password-test-info')"></i>
+        </h2>
+        <div class="info-popup hidden" id="password-test-info">
+            <p>
+                The "Test Your Password" section evaluates password strength based on factors such as length, diversity of characters, and entropy.
+                It checks your password against known breached databases to ensure it hasn’t been exposed. This helps users make informed decisions about their password security.
+            </p>
+            <button onclick="togglePopup('password-test-info')">Close</button>
+        </div>
+        <h3>(Password strength checker may take a few seconds to load)</h3>
+        <label for="user-password">Password:</label>
+        <input type="password" id="user-password" placeholder="Enter your password">
+        <progress id="user-strength-meter" max="100" value="0"></progress>
+        <p id="user-strength-text">Password strength will appear here.</p>
+        <button id="check-strength">Check Password Strength</button>
+        <button id="check-breach">Check for Breaches</button>
+        <p id="breach-result"></p>
+        <p class="info highlight">For security reasons, the password will clear after 30 seconds.</p>
+    </div>
+
+    <!-- Generate Password Section -->
+    <div class="form">
+        <h2>
+            Generate New Password
+            <i class="fas fa-question-circle info-icon" onclick="togglePopup('password-generate-info')"></i>
+        </h2>
+        <div class="info-popup hidden" id="password-generate-info">
+            <p>
+                This section is designed to generate secure passwords by utilizing cryptographic randomness through the <code>crypto.getRandomValues</code> method in JavaScript. 
+                This ensures every password generated is unpredictable and resistant to common brute-force attacks.
+            </p>
+            <p>
+                Users can customize their passwords by specifying the length (between 8 and 32 characters) and choosing to include uppercase letters, numbers, and special characters. 
+                These options ensure a strong and highly secure password tailored to user needs.
+            </p>
+            <p>
+                The implementation adheres to modern security guidelines by leveraging randomness and character diversity. 
+                Additionally, the generated password's strength is calculated using entropy principles, and a visual progress bar represents its robustness.
+            </p>
+            <button onclick="togglePopup('password-generate-info')">Close</button>
+        </div>
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" min="8" max="32" value="12">
+    
+        <div class="options">
+            <label><input type="checkbox" id="uppercase" checked> Include Uppercase</label>
+            <label><input type="checkbox" id="numbers" checked> Include Numbers</label>
+            <label><input type="checkbox" id="special" checked> Include Special Characters</label>
+        </div>
+        <button id="generate">Generate Password</button>
+        <input type="text" id="password" readonly>
+        <button id="copy">Copy to Clipboard</button>
+        <div class="strength">
+            <label>Password Strength:</label>
+            <progress id="strength-meter" max="100" value="0"></progress>
+        </div>
+        <p class="info highlight">For security reasons, the generated password will clear after 30 seconds.</p>
+    </div>
+
+    <!-- Save Multiple Passwords Section -->
+    <div class="form">
+        <h2>
+            Save Multiple Passwords
+            <i class="fas fa-question-circle info-icon" onclick="togglePopup('password-encrypt-info')"></i>
+        </h2>
+        <div class="info-popup hidden" id="password-encrypt-info">
+            <p>
+                This section enables secure encryption of multiple passwords using the <strong>AES-GCM</strong> encryption algorithm, 
+                which is widely regarded as a secure standard for ensuring confidentiality and data integrity. 
+                The AES-GCM mode provides authenticated encryption, protecting against unauthorized modifications of the encrypted data.
+            </p>
+            <p>
+                The encryption key is derived using the <strong>PBKDF2 key derivation function</strong>, which combines a user-specified encryption key 
+                with a salt to make the resulting key resistant to brute-force attacks. This ensures that even weak or predictable keys are strengthened.
+            </p>
+            <p>
+                Users can save encrypted passwords into a file, which can later be decrypted using the same encryption key. 
+                This implementation emphasizes strong cryptographic principles to safeguard sensitive information and adheres to 
+                modern standards of encryption and secure key management.
+            </p>
+            <button onclick="togglePopup('password-encrypt-info')">Close</button>
+        </div>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Enter the number of passwords you want to save.</li>
+            <li>Click "Create Input Fields" to generate the fields for labels and passwords.</li>
+            <li>Fill in the account labels and passwords in the generated fields.</li>
+            <li>Enter and confirm an encryption key that will be used to secure your data.</li>
+            <li class="highlight">Click "Encrypt and Download" to save your passwords in an encrypted file.</li>
+        </ol>
+
+        <label for="number-of-passwords">How many passwords do you want to save?</label>
+        <input type="number" id="number-of-passwords" min="1" value="1">
+        <button id="create-password-fields">Create Input Fields</button>
+        <div id="password-fields-container"></div>
+
+        <!-- Encryption Key Section -->
+        <label for="encryption-key">Enter Encryption Key:</label>
+        <input type="password" id="encryption-key" placeholder="Enter a key">
+        <label for="confirm-encryption-key">Confirm Encryption Key:</label>
+        <input type="password" id="confirm-encryption-key" placeholder="Confirm your key">
+        <p id="encryption-key-status"></p>
+
+        <!-- Encrypt and Save Button -->
+        <button id="encrypt-and-download" style="display: none;">Encrypt and Download</button>
+        <p id="save-status"></p>
+    </div>
+
+    <!-- Decrypt Section -->
+    <div class="form">
+        <h2>Decrypt a Password File</h2>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Upload the encrypted password file using the "Choose File" button.</li>
+            <li>Enter the decryption key you used during encryption in the provided field.</li>
+            <li>Click "Decrypt File" to decrypt and view the contents of the file.</li>
+            <li>After decryption, you can view the passwords and optionally download the decrypted file for future reference.</li>
+            <li class="highlight">(After successful decryption you have to scroll down to see the output and option to download.)</li>
+        </ol>
+
+        <label for="password-file">Upload Encrypted File:</label>
+        <input type="file" id="password-file">
+        <label for="decryption-key">Enter Decryption Key:</label>
+        <input type="password" id="decryption-key" placeholder="Enter your key">
+        <button id="decrypt-file">Decrypt File</button>
+        <div id="decrypted-content" style="display: none;">
+            <h3>Decrypted Passwords:</h3>
+            <ul id="decrypted-passwords"></ul>
+            <button id="download-decrypted-file">Download Decrypted File</button>
+        </div>
+    </div>
+    <!-- Share Password Section -->
+    <div class="form">
+        <h2>Share Passwords Securely</h2>
+        <label for="share-password">Password to Share:</label>
+        <input type="password" id="share-password" placeholder="Enter password to share">
+        <button id="generate-keys">Generate Keys</button>
+        <p id="public-key-display"></p>
+        <button id="encrypt-share" disabled>Encrypt and Share</button>
+        <p id="share-status"></p>
+    </div>
+
+    <!-- Decrypt Shared Password Section -->
+    <div class="form">
+        <h2>Decrypt a Shared Password</h2>
+        <label for="shared-encrypted-password">Shared File:</label>
+        <input type="file" id="shared-encrypted-password">
+        <label for="private-key-file">Your Private Key File:</label>
+        <input type="file" id="private-key-file">
+        <button id="decrypt-shared">Decrypt Password</button>
+        <p id="decrypted-shared-result"></p>
+    </div>
+    
+    
+    
+
+    <script>
+        function togglePopup(id) {
+            const popup = document.getElementById(id);
+            popup.classList.toggle('hidden');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
