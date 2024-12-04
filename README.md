@@ -115,12 +115,6 @@ To start the backend server, run:
 node server.mjs
 Open the app in your browser by navigating to http://localhost:3000 or just open index.html directly.
 
-![Alt text](/Screen%20Shot%202024-12-04%20at%2010.00.22%20AM.png)
-![Alt text](/Screen%20Shot%202024-12-04%20at%2010.00.32%20AM.png)
-![Alt text](/Screen%20Shot%202024-12-04%20at%2010.00.40%20AM.png)
-![Alt text](/Screen%20Shot%202024-12-04%20at%209.58.59%20AM.png)
-![Alt text](/Screen%20Shot%202024-12-04%20at%209.59.05%20AM.png)
-![Alt text](/Screen%20Shot%202024-12-04%20at%209.59.31%20AM.png)
 
 
 
