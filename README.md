@@ -115,6 +115,8 @@ To start the backend server, run:
 node server.mjs
 Open the app in your browser by navigating to http://localhost:3000 or just open index.html directly.
 
+Screen Shot 2024-12-04 at 10.00.22 AM.png
+
 
 
 
